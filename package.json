@@ -1,0 +1,19 @@
+{
+  "name": "godef",
+  "main": "./lib/godef",
+  "version": "0.0.1",
+  "description": "Find definition under current cursor for golang using 'godef'",
+  "activationCommands": {
+    "atom-workspace": "godef:toggle"
+  },
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/litgh/atom-godef"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">0.50.0"
+  },
+  "dependencies": {
+  }
+}

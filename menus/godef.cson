@@ -1,0 +1,22 @@
+# See https://atom.io/docs/latest/creating-a-package#menus for more details
+'context-menu':
+  'atom-text-editor': [
+    {
+      'label': 'Toggle godef'
+      'command': 'godef:toggle'
+    }
+  ]
+'menu': [
+  {
+    'label': 'Packages'
+    'submenu': [
+      'label': 'godef'
+      'submenu': [
+        {
+          'label': 'Toggle'
+          'command': 'godef:toggle'
+        }
+      ]
+    ]
+  }
+]
