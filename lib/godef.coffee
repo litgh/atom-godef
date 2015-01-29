@@ -5,6 +5,7 @@ fs = require 'fs'
 {CompositeDisposable} = require 'atom'
 
 module.exports = Godef =
+
   subscriptions: null
 
   activate: (state) ->
@@ -19,9 +20,7 @@ module.exports = Godef =
 
   serialize: ->
 
-
   toggle: ->
-      console.log 'godef:toggle'
       textEditor = atom.workspace.getActiveTextEditor()
       wordRange = textEditor.getCursor().getCurrentWordBufferRange()
       offset = textEditor.getBuffer().characterIndexForPosition(wordRange.end)
@@ -30,41 +29,50 @@ module.exports = Godef =
 
 
   godef: (file, offset) ->
-      console.log '===========================Godef start ===================='
-      gopath = process.env.GOPATH
-      console.log 'GOPATH: ' + gopath
-      godefpath = ""
-      found = false
+      gopath = atom.config.get('godef.goPath')
+      gopath = process.env.GOPATH if not gopath?
+      if gopath?
+        atom.config.set('godef.goPath', gopath)
+      else
+        console.log 'cannot found GOPATH'
+        return
 
-      for p in gopath.split(':')
-          godefpath = path.join(p, 'bin', 'godef')
-          exists = fs.existsSync(godefpath)
-          if exists
-              console.log 'find godef path:' + godefpath
-              found = true
-              break
-          else
-              continue
+      console.log 'GOPATH: ' + gopath
+
+      godefpath = atom.config.get('godef.godefPath')
+      found = false
+      if not godefpath?
+        for p in gopath.split(':')
+            godefpath = path.join(p, 'bin', 'godef')
+            exists = fs.existsSync(godefpath)
+            if exists
+                found = true
+                atom.config.set('godef.godefPath', godefpath)
+                break
+            else
+                continue
+      else
+        found = true
 
       if found
-          console.log 'using godefpath: ' + godefpath
-          args = [
-              godefpath
-              '-f'
-              file
-              '-o'
-              offset
-          ]
-          console.log 'exec ' + args.join(' ')
-          proc.exec args.join(' '), (err, stdout, stderr) ->
-             location = stdout.split(':')
-             if location.length == 3
-                 row = parseInt(location[1])
-                 column = parseInt(location[2])
-                 options =
-                     initialLine: (--row)
-                     initialColumn: (--column)
+        args = [
+            godefpath
+            '-f'
+            file
+            '-o'
+            offset
+        ]
+        console.log 'exec ' + args.join(' ')
+        proc.exec args.join(' '), (err, stdout, stderr) ->
+           location = stdout.split(':')
+           if location.length == 3
+               row = parseInt(location[1])
+               column = parseInt(location[2])
+               options =
+                   initialLine: (--row)
+                   initialColumn: (--column)
 
-                 atom.workspace.open(location[0], options)
+               atom.workspace.open(location[0], options)
+
       else
-          return
+        console.log 'godef not found'
