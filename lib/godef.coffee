@@ -22,9 +22,8 @@ module.exports = Godef =
 
   toggle: ->
       textEditor = atom.workspace.getActiveTextEditor()
-      wordRange = textEditor.getCursor().getCurrentWordBufferRange()
-      offset = textEditor.getBuffer().characterIndexForPosition(wordRange.end)
-      offset = new Buffer(textEditor.getText().substring(0, offset)).length
+      wordStart = textEditor.getSelectedBufferRange().start
+      offset = textEditor.getTextInBufferRange([[0,0], wordStart]).length
       @godef(textEditor.getPath(), offset)
 
 
