@@ -14,17 +14,22 @@
   "engines": {
     "atom": ">0.50.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "atom-space-pen-views": "^2.0.0",
+    "text-buffer": "^4.0.0",
+    "q": "^1.0.1",
+    "underscore-plus": "^1.6.6"
+  },
   "readme": "# atom-godef\nFind definition under current cursor for golang using 'godef'\n\n## Installation\n\nThe plugin assumes `godef` is present at `$GOPATH/bin/godef`. You need install `godef` first:\n\ngo get -v code.google.com/p/rog-go/exp/cmd/godef\n\n## Usage\n\nTo activate godef , run `godef:toggle` via CommandPalette,\nor apply some keybindings in your keymap.cson:\n\n```coffee\n'atom-text-editor':\n'ctrl-k': 'godef:toggle'\n```\n",
   "readmeFilename": "README.md",
   "bugs": {
     "url": "https://github.com/litgh/atom-godef/issues"
   },
   "homepage": "https://github.com/litgh/atom-godef",
-  "_id": "godef@0.1.0",
+  "_id": "godef@0.1.1",
   "_shasum": "6134506a584ebf4fa0aa611de1f7ded03056103a",
-  "_resolved": "file:../d-115028-11716-14v614i/package.tgz",
-  "_from": "../d-115028-11716-14v614i/package.tgz",
+  "_resolved": "file:../d-115029-23054-14stt2r/package.tgz",
+  "_from": "../d-115029-23054-14stt2r/package.tgz",
   "_atomModuleCache": {
     "version": 1,
     "dependencies": [],
