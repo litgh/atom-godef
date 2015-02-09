@@ -42,8 +42,8 @@ module.exports = Godef =
     if !grammar or grammar.name != 'Go'
       return
 
-    wordStart = textEditor.getSelectedBufferRange().start
-    offset = textEditor.getTextInBufferRange([[0,0], wordStart]).length
+    wordEnd = textEditor.getSelectedBufferRange().end
+    offset = new Buffer(textEditor.getTextInBufferRange([[0,0], wordEnd])).length
     @godef(textEditor.getPath(), offset, atom.config.get 'godef.show')
 
   godef: (file, offset, position) ->
@@ -74,7 +74,7 @@ module.exports = Godef =
         '-o'
         offset
     ]
-
+    
     proc.exec args.join(' '), (err, stdout, stderr) =>
       location = stdout.split(':')
       if location.length == 3
