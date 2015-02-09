@@ -1,7 +1,7 @@
 {
   "name": "godef",
   "main": "./lib/godef",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Find definition under current cursor for golang using 'godef'",
   "activationCommands": {
     "atom-workspace": "godef:toggle"
