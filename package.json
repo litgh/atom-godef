@@ -1,7 +1,7 @@
 {
   "name": "godef",
   "main": "./lib/godef",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Find definition under current cursor for golang using 'godef'",
   "activationCommands": {
     "atom-workspace": "godef:toggle"
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "atom-space-pen-views": "^2.0.0",
-    "text-buffer": "^4.0.0",
+    "text-buffer": "^5.2.0",
     "q": "^1.0.1",
     "underscore-plus": "^1.6.6"
   },
