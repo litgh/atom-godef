@@ -42,16 +42,15 @@ module.exports = Godef =
     if !grammar or grammar.name != 'Go'
       return
 
-    wordEnd = textEditor.getSelectedBufferRange().end
-    offset = new Buffer(textEditor.getTextInBufferRange([[0,0], wordEnd])).length
+    characterOffset = textEditor.getBuffer().characterIndexForPosition(textEditor.getCursorBufferPosition())
+    text = textEditor.getText().substring(0, characterOffset)
+    offset = Buffer.byteLength(text, "utf8")
+
     @godef(textEditor.getPath(), offset, atom.config.get 'godef.show')
 
   godef: (file, offset, position) ->
     @gopath = process.env.GOPATH
     if not @gopath
-      console.log "GOPATH not found."
-      return
-
     found = false
     if not @godefpath?
       for p in @gopath.split(':')
@@ -74,7 +73,7 @@ module.exports = Godef =
         '-o'
         offset
     ]
-    
+
     proc.exec args.join(' '), (err, stdout, stderr) =>
       location = stdout.split(':')
       if location.length == 3

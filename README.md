@@ -14,5 +14,5 @@ or apply some keybindings in your keymap.cson:
 
 ```coffee
 'atom-text-editor':
-	'ctrl-k': 'godef:toggle'
+	'ctrl-i': 'godef:toggle'
 ```
