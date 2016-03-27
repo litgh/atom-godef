@@ -50,9 +50,8 @@ module.exports = Godef =
 
   godef: (file, offset, position) ->
     @gopath = process.env.GOPATH
-    if not @gopath
     found = false
-    if not @godefpath?
+    if @gopath and not @godefpath?
       for p in @gopath.split(':')
         @godefpath = path.join(p, 'bin', 'godef')
         exists = fs.existsSync(@godefpath)
@@ -61,10 +60,9 @@ module.exports = Godef =
             break
         else
             continue
-
-      if not found
-        console.log "godef not find."
-        return
+    if not found
+      console.log "godef not find."
+      return
 
     args = [
         @godefpath
